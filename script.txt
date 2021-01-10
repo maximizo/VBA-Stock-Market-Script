@@ -1,0 +1,85 @@
+Sub Assignment2VBAofWallSt():
+
+'Assign to all worksheets
+    For Each ws In Worksheet
+
+'set column headers
+        ws.Range("I1").Value = "Ticker"
+        ws.Range("J1").Value = "Yearly Change"
+        ws.Range("K1").Value = "Percent Change"
+        ws.Range("L1").Value = "Total Stock Volume"
+        ws.Range("P1").Value = "Ticker"
+        ws.Range("Q1").Value = "Value"
+        ws.Range("O2").Value = "Greatest % Increase"
+        ws.Range("O3").Value = "Greatest % Decrease"
+        ws.Range("O4").Value = "Greatest Total Volume"
+
+'Declare variables
+        Dim lastrow As Long
+        Dim tickerid As String
+        Dim stockvolume As Double
+        Dim yearopen As Double
+        Dim yearclose As Double
+        Dim yearchange As Double
+        Dim percentchange As Double
+        Dim greatestincrease As Double
+        Dim greatestdecrease As Double
+        Dim greatestvolume As Double
+        Dim summarytable As Long
+        Dim priorprice As Long
+
+
+'Set default values
+        stockvolume = 0
+        greatestincrease = 0
+        greatestdecrease = 0
+        greatestvolume = 0
+        summarytable = 2
+        priorprice = 2
+
+
+'Identify last row
+        lastrow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+
+        For i = 2 To lastrow
+
+'Sum of stock volume
+            stockvolume = stockvolume + ws.Cells(i, 7).Value
+
+'Identify ticker change
+            If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+            tickerid = ws.Cells(i, 1).Value
+            
+'Plug in values to summary table
+            ws.Range("I" & summarytable).Value = tickerid
+            ws.Range("L" & summarytable).Value = stockvolume
+            stockvolume = 0
+
+'Calculate yearly change total
+            yearclose = ws.Range("F", i)
+            yearopen = ws.Range("C", priorprice)
+            yearchange = yearclose - yearopen
+            ws.Range("J" & summarytable).Value = yearchange
+
+'Calculate yearly percent change
+            If yearopen = 0 Then
+                percentchange = 0
+            Else
+                yearopen = ws.Range("C" & priorprice)
+                percentchange = yearchange / yearopen
+            End If
+
+'Format percentage cells
+            ws.Range("K" & summarytable).NumberFormat = "0.00%"
+            ws.Range("K" & summarytable).Value = percentchange
+
+'Conditional Formatting
+            If ws.Range("J" & summarytable).Value >= 0 Then
+                ws.Range("J" & summarytable).Interior.ColorIndex = 4
+            Else
+                ws.Range("J" & summarytable).Interior.ColorIndex = 3
+            End If
+            
+Next ws
+
+End Sub
