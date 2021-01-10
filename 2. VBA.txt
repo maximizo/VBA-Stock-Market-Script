@@ -82,7 +82,4 @@ Sub Assignment2VBAofWallSt():
             
 Next ws
 
-'Unable to complete Challenge
-
-
 End Sub
