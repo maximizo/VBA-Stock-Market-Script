@@ -19,5 +19,5 @@ In this project, I will write my own VBA script to analyze real stock market dat
 ## Screenshot
 ### ***This code was written in VBA, and the output was NOT made by hand in excel***
 
-![final_screenshot](screenshots/final_screenshot.jpg)
+![final_screenshot](screenshots/final_screenshot.png)
 
