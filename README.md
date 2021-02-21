@@ -1,6 +1,6 @@
-## Project Description
+## Analyzing Stock Market Data
 
-In this project, I will write my own VBA script to analyze real stock market data. 
+I wrote my own VBA script to analyze real stock market data. 
 
 ## Features & Libaries
 
